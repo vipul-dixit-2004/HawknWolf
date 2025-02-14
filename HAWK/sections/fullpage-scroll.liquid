@@ -16,7 +16,122 @@
 {% endschema %}
 
 {% stylesheet %}
+<style>
+                      .footer {
+                        padding: 50px 0;
+                        font-family: serif;
+                      }
+                      
+                      .footer__content-wrapper {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        /* gap: 40px; */
+                      }
+                      
+                      .footer__copyright p {
+                        margin: 0;
+                        font-size: 14px;
+                      }
+                      
+                      .footer__newsletter h3 {
+                        margin-top: 0;
+                        margin-bottom: 10px;
+                        font-weight: normal;
+                        font-size: 16px;
+                      }
+                      
+                      .newsletter-form__field-wrapper {
+                        display: flex;
+                      }
+                      
+                      .field {
+                        display: flex;
+                      }
+                      
+                      .field__input {
+                        border: none;
+                        border-bottom: 1px solid #000;
+                        background: transparent;
+                        padding: 5px 0;
+                        font-family: serif;
+                        font-size: 14px;
+                        min-width: 200px;
+                      }
+                      
+                      .newsletter-form__button {
+                        background: none;
+                        border: none;
+                        text-decoration: underline;
+                        font-family: serif;
+                        font-size: 14px;
+                        cursor: pointer;
+                        padding-left: 10px;
+                        width:fit-content !important;
+                        background-color: #89CFF0 !important;
+                        padding-right:8px !important;
+                        /* color:white !important; */
+                      }
+                      
+                      .footer__menu {
+                        margin: 0;
+                        padding: 0;
+                      }
+                      
+                      .footer__menu li {
+                        margin-bottom: 10px;
+                      }
+                      
+                      .footer__menu a {
+                        color: #000;
+                        text-decoration: none;
+                        font-size: 14px;
+                      }
+                      
+                      .footer__menu a:hover {
+                        text-decoration: underline;
+                      }
+                      
+                      @media screen and (max-width: 768px) {
+                        .footer__content-wrapper {
+                          flex-direction: column;
+                          gap: 30px;
+                        }
+                        
+                        .footer__links-center,
+                        .footer__links-right,
+                        .footer__social-policy {
+                          width: 100%;
+                        }
+                      }
+                      
+                      @media screen and (min-width: 769px) {
+                        .footer__copyright {
+                          width: 20%;
+                        }
+                        
+                        .footer__links-center {
+                          width: 40%;
+                        }
+                        
+                        .footer__links-right,
+                        .footer__social-policy {
+                          width: 15%;
+                        }
+                      }
+                      </style>
   <style>
+/* page only css */
+        
+        .header:hover, .header__icon--menu[aria-expanded='true']::before{
+            background: rgb(158 158 158 / 50%);
+            backdrop-filter: blur(2px);
+        }
+        .header{
+            transition: background 0.3s ease-in-out;
+
+        }
 
       * {
               margin: 0;
@@ -144,104 +259,113 @@
           }
 
 
-  .shopify-section-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-    background: transparent !important;
-    box-shadow: none !important;
-    transition: background 0.3s ease;
-  }
+        .shopify-section-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            background: transparent !important;
+            box-shadow: none !important;
+            transition: background 0.3s ease;
+        }
 
-  .header-wrapper.scrolled {
-    background: rgba(0, 0, 0, 0.8) !important;
-}
+        .header-wrapper.scrolled {
+            background: rgba(0, 0, 0, 0.8) !important;
+        }
 
-/* Make sure header links are visible on video */
-.header-wrapper a,
-.header-wrapper span {
-    color: white !important;
-}
+        /* Make sure header links are visible on video */
+        .header-wrapper a,
+        .header-wrapper span {
+            color: white !important;
+        }
 
 
-.header-wrapper {
-    background: transparent !important;
-    position: fixed !important;
-    width: 100%;
-    z-index: 100;
-    transition: background-color 0.3s ease;
-}
+        .header-wrapper {
+            background: transparent !important;
+            position: fixed !important;
+            width: 100%;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
 
-.header-wrapper.scrolled {
-    background: rgba(0, 0, 0, 0.8) !important;
-}
+        .header-wrapper.scrolled {
+            background: rgba(0, 0, 0, 0.8) !important;
+        }
 
-/* Make sure header links are visible on video */
-.header-wrapper a,
-.header-wrapper span {
-    color: white !important;
-}
+        /* Make sure header links are visible on video */
+        .header-wrapper a,
+        .header-wrapper span {
+            color: white !important;
+        }
 
-/* Fullpage styles */
-.fullpage-scroll-section {
-    height: 100vh;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    background-color: #000;
-}
+        /* Fullpage styles */
+        .fullpage-scroll-section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+        }
 
-.fullpage-section {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    will-change: transform;
-    transform-style: preserve-3d;
-    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
+        .fullpage-section {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            will-change: transform;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
 
-.section-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
+        .section-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
 
-.normal-section{
-    background-color: #fff;
-}
-.category-image-section{
-    display:flex;
-    gap:10px
-    z-index: 3;
-    height: 100%;
-    width: 100%;
-}
-.photo-men,.photo-women{
-    width:50%;
-    cursor:pointer;
-    height:100%;
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    z-index:3;
+        .normal-section{
+            background-color: #fff;
+        }
+        .category-image-section{
+            display:flex;
+            gap:10px
+            z-index: 3;
+            height: 100%;
+            width: 100%;
+        }
+        .photo-men,.photo-women{
+            width:50%;
+            cursor:pointer;
+            height:100%;
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+            z-index:3;
 
-}
-.photo-men{
-    background-image:url("https://cdn.shopify.com/s/files/1/0900/6936/9201/files/kee_it.png?v=1739479203");
-}
-.photo-women{
-    background-image:url("https://cdn.shopify.com/s/files/1/0900/6936/9201/files/freecompress-SIMPLE_1_1.jpg?v=1739479865");
-}
-.section-photo{
-    height:100vh;
-    width:100%;
+        }
+        .photo-men{
+            background-image:url("https://cdn.shopify.com/s/files/1/0900/6936/9201/files/kee_it.png?v=1739479203");
+        }
+        .photo-women{
+            background-image:url("https://cdn.shopify.com/s/files/1/0900/6936/9201/files/freecompress-SIMPLE_1_1.jpg?v=1739479865");
+        }
+        .section-photo{
+            height:100vh;
+            width:100%;
 
-}
+        }
+
+        /* footer styles */
+        footer{
+            padding-top:3rem;
+        }
+        .section-normal{
+            width:100% !important;
+        }
+       
 
   </style>
 {% endstylesheet %}
@@ -345,6 +469,8 @@
 <div class="fullpage-scroll-section" id="fullpage-scroll-{{ section.id }}">
 
         <!-- Sections here -->
+        
+
         <div class="fullpage-section active">
             <div class="section-background">
                 <video autoplay muted loop playsinline>
@@ -416,21 +542,25 @@
                 </div>
             </div>
         </div>
-        <div class="fullpage-section">
+        <div class="fullpage-section active">
             <div class="section-background normal-section">
-                
-           
             </div>
             <div class="section-content">
-                <div class="text-content section-photo">
-                    <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-                        <div class="footer__content-top page-width">
-                          <div class="footer__content-wrapper grid grid--1-col grid--2-col-tablet">
-                            <!-- Newsletter Column (Left) -->
-                            <div class="footer__newsletter-column grid__item">
-                              <div class="footer-block__newsletter">
-                                <h2 class="footer-block__heading">Subscribe to our newsletter</h2>
-                                {% form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' %}
+                <div class="text-content section-normal">
+                    <img width="80%" style="height:auto" src="https://hawknwolf-dev.myshopify.com/cdn/shop/files/logo_1.png"/>
+                    <footer class="footer section-{{ section.id }}-padding">
+                        <div class="page-width">
+                          <div class="footer__content-wrapper">
+                            <!-- Copyright on left -->
+                                {% comment %} <div class="footer__copyright">
+                                <p>&copy; {{ shop.name }} {{ 'now' | date: '%Y' }}</p>
+                                </div> {% endcomment %}
+                            
+                            <!-- Newsletter and links in center -->
+                            <div class="footer__links-center">
+                              <div class="footer__newsletter">
+                                <h3>Join the Waitinglist</h3>
+                                {% form 'customer', id: 'ContactFooter', class: 'footer__newsletter-form' %}
                                   <input type="hidden" name="contact[tags]" value="newsletter">
                                   <div class="newsletter-form__field-wrapper">
                                     <div class="field">
@@ -440,124 +570,73 @@
                                         name="contact[email]"
                                         class="field__input"
                                         value="{{ form.email }}"
-                                        aria-required="true"
-                                        autocorrect="off"
-                                        autocapitalize="off"
-                                        autocomplete="email"
-                                        {% if form.errors %}
-                                          autofocus
-                                          aria-invalid="true"
-                                          aria-describedby="ContactFooter-error"
-                                        {% elsif form.posted_successfully? %}
-                                          aria-describedby="ContactFooter-success"
-                                        {% endif %}
-                                        placeholder="{{ 'newsletter.label' | t }}"
+                                        placeholder="Email address"
                                         required
                                       >
-                                      <label class="field__label" for="NewsletterForm--{{ section.id }}">
-                                        {{ 'newsletter.label' | t }}
-                                      </label>
                                       <button
                                         type="submit"
-                                        class="newsletter-form__button field__button"
+                                        class="newsletter-form__button"
                                         name="commit"
-                                        id="Subscribe"
-                                        aria-label="{{ 'newsletter.button_label' | t }}"
                                       >
-                                        <span class="svg-wrapper">
-                                          {{ 'icon-arrow.svg' | inline_asset_content }}
-                                        </span>
+                                        Subscribe
                                       </button>
                                     </div>
-                                    {% if form.errors %}
-                                      <small class="newsletter-form__message form__message" id="ContactFooter-error">
-                                        <span class="svg-wrapper">
-                                          {{ 'icon-error.svg' | inline_asset_content }}
-                                        </span>
-                                        {{ form.errors.translated_fields.email | capitalize }}
-                                        {{ form.errors.messages.email }}
-                                      </small>
-                                    {% endif %}
                                   </div>
-                                  {% if form.posted_successfully? %}
-                                    <h3
-                                      class="newsletter-form__message newsletter-form__message--success form__message"
-                                      id="ContactFooter-success"
-                                      tabindex="-1"
-                                      autofocus
-                                    >
-                                      <span class="svg-wrapper">
-                                        {{ 'icon-success.svg' | inline_asset_content }}
-                                      </span>
-                                      {{ 'newsletter.success' | t }}
-                                    </h3>
-                                  {% endif %}
                                 {% endform %}
                               </div>
                             </div>
                             
-                            <!-- Links Column (Right) -->
-                            <div class="footer__links-column grid__item">
-                              <div class="footer__links-wrapper">
-                                <!-- Hardcoded Links Section -->
-                                <div class="footer-block">
-                                  <h2 class="footer-block__heading">Quick Links</h2>
-                                  <ul class="footer-block__details-content list-unstyled">
-                                    <li>
-                                      <a href="/pages/about-us" class="link link--text list-menu__item list-menu__item--link">
-                                        About Us
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="/pages/contact-us" class="link link--text list-menu__item list-menu__item--link">
-                                        Contact Us
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="/pages/faq" class="link link--text list-menu__item list-menu__item--link">
-                                        FAQ
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="/policies/refund-policy" class="link link--text list-menu__item list-menu__item--link">
-                                        Refund Policy
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="/policies/terms-of-service" class="link link--text list-menu__item list-menu__item--link">
-                                        Terms of Service
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                                
-                                <!-- Hardcoded Contact Info -->
-                                <div class="footer-block">
-                                  <h2 class="footer-block__heading">Contact Information</h2>
-                                  <div class="footer-block__details-content rte">
-                                    <p>123 Main Street<br>
-                                    New York, NY 10001<br>
-                                    Phone: (555) 123-4567<br>
-                                    Email: info@yourstore.com</p>
-                                  </div>
-                                </div>
-                              </div>
+                            <!-- Right links -->
+                            <div class="footer__links-right">
+                              <ul class="footer__menu list-unstyled">
+                                  <li><a href="/">Home</a></li>
+                                  <li><a href="/collections/">Collections</a></li>
+                                  <li><a href="/pages/contact-us">Search</a></li>
+                              </ul>
                             </div>
-                          </div>
-                        </div>
-                      
-                        <div class="footer__content-bottom">
-                          <div class="footer__content-bottom-wrapper page-width">
-                            <div class="footer__copyright caption">
-                              <small class="copyright__content">&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url }}</small>
-                              <small class="copyright__content">{{ powered_by_link }}</small>
+                            <div class="footer__links-right">
+                                <ul class="footer__menu list-unstyled">
+                                    <li><a href="/">Our Story</a></li>
+                                    <li><a href="/collections/">Designers Note</a></li>
+                                    <li><a href="/pages/contact-us">Reach us</a></li>
+                                </ul>
+                              </div>
+                            
+                            <!-- Social and policy links -->
+                            <div class="footer__social-policy">
+                              <ul class="footer__menu list-unstyled">
+                                <li><a href="https://instagram.com/yourstore">Instagram</a></li>
+                                {% comment %} <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+                                <li><a href="/policies/terms-of-service">Terms</a></li> {% endcomment %}
+                                <li><a href="https://instagram.com/yourstore">Twitter(X)</a></li>
+                                <li><a href="https://instagram.com/yourstore">Blog</a></li>
+                                
+                              </ul>
                             </div>
                           </div>
                         </div>
                       </footer>
+                      
+                      <hr>
+                      <div>
+                        <ul class="policies list-unstyled" style="display:flex; gap:3px">
+                            <li style="color:black">&copy;Hawk&Wolf 2025</li> 
+                            {%- for policy in shop.policies -%}
+                              {%- if policy != blank -%}
+                                <li>
+                                  <small class="copyright__content"
+                                    ><a href="{{ policy.url }}" style="text-decoration:none;color:grey">{{ policy.title | escape }}</a></small
+                                  >
+                                </li>
+                                
+                              {%- endif -%}
+                            {%- endfor -%}
+                          </ul>
+                      </div>
+                      
                 </div>
             </div>
         </div>
-
+        
     </div>
 
