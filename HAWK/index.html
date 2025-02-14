@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overlay Scroll</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .fullpage-scroll-section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .fullpage-section {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            will-change: transform;
+            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+            /* Change position property to preserve stack order */
+            top: 0;
+            left: 0;
+            z-index: 1; /* Base z-index */
+        }
+
+        /* Section stacking order */
+        .fullpage-section:nth-child(1) { z-index: 1; }
+        .fullpage-section:nth-child(2) { z-index: 2; }
+        .fullpage-section:nth-child(3) { z-index: 3; }
+
+        .section-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .section-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .section-content {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .text-content {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .text-content h2 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out 0.3s;
+        }
+
+        .text-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out 0.5s;
+        }
+
+        .text-content .button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out 0.7s;
+        }
+
+        .fullpage-section.active .text-content h2,
+        .fullpage-section.active .text-content p,
+        .fullpage-section.active .text-content .button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Initial positioning of sections */
+        .fullpage-section {
+            transform: translateY(100%);
+        }
+
+        .fullpage-section:first-child {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="fullpage-scroll-section">
+        <!-- Sections here -->
+        <div class="fullpage-section active">
+            <div class="section-background">
+                <video autoplay muted loop playsinline>
+                    <source src="https://cdn.shopify.com/videos/c/o/v/576d2f3f4a2540f5976af2221b0fe3e4.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>Welcome to Our Store</h2>
+                    <p>Discover the latest collection</p>
+                    <a href="#" class="button">Shop Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fullpage-section">
+            <div class="section-background">
+                <video autoplay muted loop playsinline>
+                    <source src="https://cdn.shopify.com/videos/c/o/v/576d2f3f4a2540f5976af2221b0fe3e4.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>New Arrivals</h2>
+                    <p>Explore our latest pieces</p>
+                    <a href="#" class="button">View Collection</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fullpage-section">
+            <div class="section-background">
+                <video autoplay muted loop playsinline>
+                    <source src="https://cdn.shopify.com/videos/c/o/v/576d2f3f4a2540f5976af2221b0fe3e4.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>Our Story</h2>
+                    <p>Crafted with passion</p>
+                    <a href="#" class="button">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class OverlayScroll {
+            constructor() {
+                this.currentSection = 0;
+                this.isScrolling = false;
+                this.sections = document.querySelectorAll('.fullpage-section');
+                this.totalSections = this.sections.length;
+                
+                this.init();
+            }
+
+            init() {
+                // Initialize section positions
+                this.sections.forEach((section, index) => {
+                    if (index === 0) {
+                        section.style.transform = 'translateY(0)';
+                    } else {
+                        section.style.transform = 'translateY(100%)';
+                    }
+                });
+
+                // Desktop scroll
+                window.addEventListener('wheel', this.handleScroll.bind(this), { passive: false });
+                
+                // Mobile touch
+                let touchStartY = 0;
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+                
+                document.addEventListener('touchmove', (e) => {
+                    if (this.isScrolling) return;
+                    
+                    const touchEndY = e.touches[0].clientY;
+                    const diff = touchStartY - touchEndY;
+                    
+                    if (Math.abs(diff) > 50) {
+                        const direction = diff > 0 ? 1 : -1;
+                        this.moveSection(direction);
+                        touchStartY = touchEndY;
+                    }
+                }, { passive: true });
+
+                // Start videos
+                this.sections.forEach(section => {
+                    const video = section.querySelector('video');
+                    if (video) {
+                        video.play().catch(error => console.log("Video play failed:", error));
+                    }
+                });
+            }
+
+            handleScroll(e) {
+                e.preventDefault();
+                
+                if (this.isScrolling) return;
+                
+                const direction = e.deltaY > 0 ? 1 : -1;
+                this.moveSection(direction);
+            }
+
+            moveSection(direction) {
+                const nextSection = this.currentSection + direction;
+                
+                if (nextSection >= 0 && nextSection < this.totalSections) {
+                    this.isScrolling = true;
+                    
+                    // Remove active class from current section
+                    this.sections[this.currentSection].classList.remove('active');
+                    
+                    this.currentSection = nextSection;
+                    
+                    // Add active class to new section
+                    this.sections[this.currentSection].classList.add('active');
+                    
+                    // Update sections
+                    this.sections.forEach((section, index) => {
+                        if (index <= this.currentSection) {
+                            section.style.transform = 'translateY(0)';
+                        } else {
+                            section.style.transform = 'translateY(100%)';
+                        }
+                    });
+                    
+                    setTimeout(() => {
+                        this.isScrolling = false;
+                    }, 1000);
+                }
+            }
+        }
+
+        // Initialize the scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            new OverlayScroll();
+        });
+    </script>
+</body>
+</html>
