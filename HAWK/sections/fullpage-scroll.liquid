@@ -171,6 +171,7 @@
           .fullpage-section:nth-child(3) { z-index: 2; }
           .fullpage-section:nth-child(4) { z-index: 2; }
           .fullpage-section:nth-child(5) { z-index: 2; }
+          .fullpage-section:nth-child(6) { z-index: 2; }
 
 
           .section-background {
@@ -206,7 +207,16 @@
               color: white;
               z-index:3
           }
-
+          .section-content .text-content.bottom {
+            position: relative;
+            top:85%;
+            height:100%;
+          }
+          .text-content.bottom a{
+            color:white;
+            text-decoration: none!important;
+          }
+          
           .text-content {
               text-align: center;
               padding: 2rem;
@@ -223,7 +233,7 @@
 
           .text-content p {
               font-size: 1.5rem;
-              margin-bottom: 2rem;
+              margin-bottom: 1rem;
               opacity: 0;
               transform: translateY(20px);
               transition: all 0.8s ease-out 0.5s;
@@ -275,7 +285,7 @@
         }
 
         /* Make sure header links are visible on video */
-        .header-wrapper a,
+        
         .header-wrapper span {
             color: white !important;
         }
@@ -288,17 +298,47 @@
             z-index: 100;
             transition: background-color 0.3s ease;
         }
+        
+        .header {
+    transition: all 0.3s ease-in-out;
+}
+        .header.menu-open {
+    background: rgb(255, 255, 255); 
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+.header.menu-open span {
+    color: black !important;
+}
 
-        .header-wrapper.scrolled {
-            background: rgba(0, 0, 0, 0.8) !important;
-        }
+.header.menu-open .header__icon--menu[aria-expanded='true']::before{
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(2px);
+}
 
+
+
+.header-wrapper span {
+    color: white !important;
+}
+
+.header-wrapper {
+    background: transparent !important;
+    position: fixed !important;
+    width: 100%;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.menu-opening .menu-drawer__inner-container {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+        
         /* Make sure header links are visible on video */
-        .header-wrapper a,
-        .header-wrapper span {
-            color: white !important;
-        }
-
+      
         /* Fullpage styles */
         .fullpage-scroll-section {
             height: 100vh;
@@ -336,7 +376,7 @@
             height: 100%;
             width: 100%;
         }
-        .photo-men,.photo-women{
+        .photo-section{
             width:50%;
             cursor:pointer;
             height:100%;
@@ -350,13 +390,60 @@
             background-image:url("https://cdn.shopify.com/s/files/1/0900/6936/9201/files/kee_it.png?v=1739479203");
         }
         .photo-women{
-            background-image:url("https://cdn.shopify.com/s/files/1/0900/6936/9201/files/freecompress-SIMPLE_1_1.jpg?v=1739479865");
+            background-image:url("https://cdn.shopify.com/s/files/1/0900/6936/9201/files/freecompress-SIMPLE_1_1.jpg?v=1739570335");
+        }
+        .photo-archive {
+            background-image:url("https://cdn.shopify.com/s/files/1/0900/6936/9201/files/blur_archive.jpg?v=1739568559");
+            backdrop-filter: blur(2px);
         }
         .section-photo{
             height:100vh;
             width:100%;
+            background-color:rgb(89, 156, 187);
 
         }
+        .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .archive-content {
+    text-align: center;
+
+    
+  }
+  
+  .centered-heading {
+    /* margin-bottom: 15px; */
+    color:white;
+    font-size: 60px;
+    font-weight:300;
+  }
+  @media screen and (max-width: 767px) {
+  .category-image-section {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .photo-section {
+    width: 100%;
+    height: 50vh; /* Half of viewport height on mobile */
+  }
+  
+  .centered-heading {
+    font-size: 36px; /* Smaller font size for mobile */
+  }
+  
+  .section-photo {
+    height: auto; /* Allow height to expand based on content */
+  }
+  
+  /* Optional: change the order for better mobile UX */
+  .category-image-section {
+    flex-direction: column-reverse; /* Show archive photo first, then text */
+  }
+}
 
         /* footer styles */
         footer{
@@ -469,7 +556,6 @@
 <div class="fullpage-scroll-section" id="fullpage-scroll-{{ section.id }}">
 
         <!-- Sections here -->
-        
 
         <div class="fullpage-section active">
             <div class="section-background">
@@ -479,10 +565,15 @@
                 <div class="video-overlay"></div>
             </div>
             <div class="section-content">
-                <div class="text-content">
-                    <h2>Welcome to Hawk&Wolf</h2>
-                    <p>Discover the latest collection</p>
-                    <a href="#" class="button">Explore</a>
+                <div class="text-content bottom">
+                    
+                    
+                    <a href="#" class="">
+                      <p>Lourem Ipsom</p>
+                      <p><b>Discover the latest collection</b></p>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" fill="none" aria-hidden="false"><path stroke="currentColor" d="M9 1 5 5 1 1"></path></svg>
+
+                  </a>
                 </div>
             </div>
         </div>
@@ -495,13 +586,13 @@
             <div class="section-content">
                 <div class="text-content section-photo">
                     <div class="category-image-section flex">
-                        <div class="photo-men" onClick="(function(){
+                        <div class="photo-men photo-section" onClick="(function(){
                             window.location.href='/collections/men'
                             return false;
                         })();return false;">
                             
                         </div>
-                        <div class="photo-women" onClick="(function(){
+                        <div class="photo-women photo-section" onClick="(function(){
                             window.location.href='/collections/women'
                             return false;
                         })();return false;">
@@ -519,7 +610,7 @@
                 <div class="video-overlay"></div>
             </div>
             <div class="section-content">
-                <div class="text-content">
+                <div class="text-content bottom">
                     <h2>New Arrivals</h2>
                     <p>Explore our latest pieces</p>
                     {% comment %} <a href="#" class="button">View Collection</a> {% endcomment %}
@@ -535,19 +626,52 @@
                 <div class="video-overlay"></div>
             </div>
             <div class="section-content">
-                <div class="text-content">
+                <div class="text-content bottom">
                     <h2>Our Story</h2>
                     <p>Crafted with passion</p>
                     <a href="#" class="button">Learn More</a>
                 </div>
             </div>
         </div>
-        <div class="fullpage-section active">
+
+
+        {% comment %} archive {% endcomment %}
+        <div class="fullpage-section">
+            <div class="section-background normal-section">
+                
+           
+            </div>
+            <div class="section-content">
+                <div class="text-content section-photo">
+                    <div class="category-image-section flex">
+                        <div class="photo-section center" onClick="(function(){
+                            window.location.href='/collections/archive'
+                            return false;
+                        })();return false;">
+                        <div class="archive-content">
+                            <h1 class="centered-heading">
+                                Explore our timeless<br>Archive collection
+                            </h1>
+                          </div>
+                        </div>
+                        <div class="photo-archive photo-section" onClick="(function(){
+                            window.location.href='/collections/archive'
+                            return false;
+                        })();return false;">
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+{% comment %} footer {% endcomment %}
+
+        <div class="fullpage-section">
             <div class="section-background normal-section">
             </div>
             <div class="section-content">
                 <div class="text-content section-normal">
-                    <img width="80%" style="height:auto" src="https://hawknwolf-dev.myshopify.com/cdn/shop/files/logo_1.png"/>
                     <footer class="footer section-{{ section.id }}-padding">
                         <div class="page-width">
                           <div class="footer__content-wrapper">
@@ -589,27 +713,29 @@
                             <!-- Right links -->
                             <div class="footer__links-right">
                               <ul class="footer__menu list-unstyled">
-                                  <li><a href="/">Home</a></li>
-                                  <li><a href="/collections/">Collections</a></li>
-                                  <li><a href="/pages/contact-us">Search</a></li>
+                                  <li><a href="/collections/">All Collections</a></li>
+                                  <li><a href="/collections/exclusive">Exclusive</a></li>
+                                  <li><a href="/collections/archive">Archive</a></li>
+                                  <li><a href="/search">Search</a></li>
                               </ul>
                             </div>
                             <div class="footer__links-right">
                                 <ul class="footer__menu list-unstyled">
-                                    <li><a href="/">Our Story</a></li>
-                                    <li><a href="/collections/">Designers Note</a></li>
-                                    <li><a href="/pages/contact-us">Reach us</a></li>
+                                    <li><a href="/pages/about">Our Story</a></li>
+                                    <li><a href="/blogs/designers-note">Designers Note</a></li>
+                                    <li><a href="/pages/contact">Reach us</a></li>
+                                    <li><a href="/pages/contact">Terms & policies</a></li>
                                 </ul>
                               </div>
                             
                             <!-- Social and policy links -->
                             <div class="footer__social-policy">
                               <ul class="footer__menu list-unstyled">
-                                <li><a href="https://instagram.com/yourstore">Instagram</a></li>
+                                <li><a href="https://www.instagram.com/hawknwolf/">Instagram</a></li>
                                 {% comment %} <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
                                 <li><a href="/policies/terms-of-service">Terms</a></li> {% endcomment %}
-                                <li><a href="https://instagram.com/yourstore">Twitter(X)</a></li>
-                                <li><a href="https://instagram.com/yourstore">Blog</a></li>
+                                <li><a href="https://x.com/">Twitter(X)</a></li>
+                                <li><a href="/blog/">Blog</a></li>
                                 
                               </ul>
                             </div>
@@ -617,7 +743,7 @@
                         </div>
                       </footer>
                       
-                      <hr>
+                      {% comment %} <hr>
                       <div>
                         <ul class="policies list-unstyled" style="display:flex; gap:3px">
                             <li style="color:black">&copy;Hawk&Wolf 2025</li> 
@@ -633,10 +759,20 @@
                             {%- endfor -%}
                           </ul>
                       </div>
-                      
+                       {% endcomment %}
                 </div>
             </div>
         </div>
         
     </div>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const menuButton = document.querySelector('.header__icon--menu');
+          const header = document.querySelector('.header');
+          
+          menuButton.addEventListener('click', function() {
+              header.classList.toggle('menu-open');
+          });
+      });
+    </script>

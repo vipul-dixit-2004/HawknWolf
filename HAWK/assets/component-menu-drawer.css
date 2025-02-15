@@ -242,10 +242,12 @@ details[open].menu-opening > .menu-drawer__submenu {
   }
 }
 .menu-opening .menu-drawer__inner-container{
-  background: rgb(158 158 158 / 50%);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(2px);
+  
 }
 .header__icon--menu[aria-expanded='true']::before{
-  background: rgb(158 158 158 / 50%);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(2px);
 }
+
