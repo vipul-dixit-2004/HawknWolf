@@ -209,7 +209,7 @@
           }
           .section-content .text-content.bottom {
             position: relative;
-            top:85%;
+            top:82%;
             height:100%;
           }
           .text-content.bottom a{
@@ -219,7 +219,7 @@
           
           .text-content {
               text-align: center;
-              padding: 2rem;
+              /* padding: 2rem; */
           }
 
           .text-content h2 {
@@ -329,11 +329,11 @@
     transition: all 0.3s ease;
 }
 
-.menu-opening .menu-drawer__inner-container {
+/* .menu-opening .menu-drawer__inner-container {
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
-}
+} */
 
         
         /* Make sure header links are visible on video */
@@ -673,7 +673,7 @@
         </div>
 {% comment %} footer {% endcomment %}
 
-        <div class="fullpage-section">
+        <div class="fullpage-section footerSection">
             <div class="section-background normal-section">
             </div>
             <div class="section-content">
@@ -792,5 +792,20 @@
               logoImage.innerHTML = originalSource;
             }
         });
+
+        const footerSection = document.querySelector(".footerSection");
+
+        footerSection.addEventListener('mouseover',function() {
+          header.classList.add('menu-open');
+          logoImage.innerHTML = originalSource;
+          
+        })
+        footerSection.addEventListener('mouseout',function() {
+          setTimeout(function(){
+            header.classList.remove('menu-open');
+            logoImage.innerHTML = newSource;
+          
+          },1000)
+          })
     });
     </script>

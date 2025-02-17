@@ -78,13 +78,17 @@
 
 @font-face {
   font-family: 'Antipasto';
-  src: url('https://cdn.shopify.com/s/files/1/0900/6936/9201/files/antipasto.thin.ttf?v=1739539792') format('ttf');
+  src: url('https://cdn.shopify.com/s/files/1/0900/6936/9201/files/antipasto.thin.woff2?v=1739614426') format('woff2'),
+       url('https://cdn.shopify.com/s/files/1/0900/6936/9201/files/antipasto.thin.woff?v=1739614425') format('woff'),
+       url('https://cdn.shopify.com/s/files/1/0900/6936/9201/files/antipasto.thin.ttf?v=1739539792') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 body {
-  font-family: 'Antipasto', sans-serif;
+  font-family: 'Antipasto';
+  font-weight: 600;
 }
 
 

@@ -26,17 +26,43 @@
   {%- endif -%}
 
   {%- style -%}
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    }
+            .section-{{ section.id }}-padding {
+              padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+              padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+            }
 
-    @media screen and (min-width: 750px) {
-      .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top }}px;
-        padding-bottom: {{ section.settings.padding_bottom }}px;
-      }
-    }
+            @media screen and (min-width: 750px) {
+              .section-{{ section.id }}-padding {
+                padding-top: {{ section.settings.padding_top }}px;
+                padding-bottom: {{ section.settings.padding_bottom }}px;
+              }
+            }
+            /* Product page container */
+            @media screen and (min-width: 750px) {
+              
+              .product__media-list{
+                /* to make media come in a stack */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+              }
+              .product__wrapper{
+                /* to remove extra padding and margins */
+                margin:auto 0px;
+                padding:0 !important;
+              }
+              .product__media-item{
+                /* to make image cover whole area */
+                width: 100% !important;
+                max-width: 100% !important;
+              }
+              .contains-media{
+                row-gap:0 !important;
+                /* this help in removing the spaces btw the images */
+              }
+            }
+
+            
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -73,7 +99,7 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class="page-width">
+  <div class="page-width product__wrapper">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
