@@ -42,6 +42,14 @@
           "type": "description",
           "settings": {}
         },
+        "inventory_jhN6VM": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "subtitle",
+            "inventory_threshold": 8,
+            "show_inventory_quantity": true
+          }
+        },
         "share": {
           "type": "share",
           "settings": {
@@ -56,6 +64,7 @@
         "quantity_selector",
         "buy_buttons",
         "description",
+        "inventory_jhN6VM",
         "share"
       ],
       "settings": {
@@ -79,7 +88,7 @@
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
-        "products_to_show": 8,
+        "products_to_show": 4,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
         "image_ratio": "square",
