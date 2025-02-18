@@ -61,6 +61,43 @@
       class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
       role="list"
     >
+      {% comment %} autoplay video {% endcomment %}
+      {% if product.metafields.custom.video_url%}
+        {% assign video_url = product.metafields.custom.video_url %}
+      <li
+        id="Slide-{{ section.id }}-{{ media.id }}"
+        class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if product.selected_or_first_available_variant.featured_media == nil and forloop.index == 1 %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+        data-media-id="{{ section.id }}-{{ media.id }}"
+      >
+        <div
+          class="product-media-container media-fit-cover global-media-settings gradient constrain-height"
+          style="--ratio: 0.563; --preview-ratio: 0.5625;"
+        >
+          
+      
+          
+            <template
+              ></template>
+              <video
+              class="product__video"
+              playsinline="true"
+              autoplay="autoplay"
+              muted="muted"
+              loop="loop"
+              preload="auto"
+              aria-label="Black Jacket"
+              >
+              <source
+                src="{{ video_url}}"
+                type="video/mp4"
+              >
+              </video>
+        </div>
+      </li>
+    {% endif %}
+
+      {% comment %} autolpay video closed {% endcomment %}
+
       {%- if product.selected_or_first_available_variant.featured_media != null -%}
         {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
         <li
