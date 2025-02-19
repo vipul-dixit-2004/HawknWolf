@@ -26,6 +26,9 @@
   {%- endif -%}
 
   {%- style -%}
+  body{
+    font-family:sans;
+  }
             .section-{{ section.id }}-padding {
               padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
               padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -50,6 +53,7 @@
                 /* to remove extra padding and margins */
                 margin:auto 0px;
                 padding:0 !important;
+                min-width:100%
               }
               .product__media-item{
                 /* to make image cover whole area */
@@ -59,6 +63,19 @@
               .contains-media{
                 row-gap:0 !important;
                 /* this help in removing the spaces btw the images */
+                /* min-width: 50% */
+              }
+              .product__info-wrapper{
+                min-width:50%
+              }
+              .product__info-container{
+                top: 20%;
+                padding-left:50px
+              }
+            }
+            @media screen and (min-width: 990px) {
+              .product--large:not(.product--no-media) .product__media-wrapper {
+                  max-width: 50%;
               }
             }
             .product__video{
