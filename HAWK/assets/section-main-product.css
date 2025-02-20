@@ -68,7 +68,8 @@ product-info {
 
   .product--large:not(.product--no-media) .product__info-wrapper {
     padding: 0 0 0 4rem;
-    max-width: 35%;
+    /* max-width: 35%; */
+    max-width: 50%; /*changed here*/
     width: calc(35% - var(--grid-desktop-horizontal-spacing) / 2);
   }
 
@@ -171,7 +172,7 @@ product-info {
 .product-form__input {
   flex: 0 0 100%;
   padding: 0;
-  margin: 0 0 1.2rem 0;
+  /* margin: 0 0 1.2rem 0; */
   max-width: 44rem;
   min-width: fit-content;
   border: none;
@@ -218,7 +219,7 @@ product-info {
 /* Product info */
 
 .product__info-container > * + * {
-  margin: 1.5rem 0;
+  /* margin: 1.5rem 0; */
 }
 
 .product__info-container iframe {

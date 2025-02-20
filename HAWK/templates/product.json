@@ -23,13 +23,16 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "button",
+            "picker_type": "dropdown",
             "swatch_shape": "circle"
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
+        "popup_ADMXRH": {
+          "type": "popup",
+          "settings": {
+            "text": "Size Chart",
+            "page": "size-chart"
+          }
         },
         "buy_buttons": {
           "type": "buy_buttons",
@@ -42,10 +45,18 @@
           "type": "description",
           "settings": {}
         },
-        "share": {
-          "type": "share",
+        "popup_ieVPeq": {
+          "type": "popup",
           "settings": {
-            "share_label": "Share"
+            "text": "Find in Store",
+            "page": "find-in-store"
+          }
+        },
+        "popup_PdGEDk": {
+          "type": "popup",
+          "settings": {
+            "text": "Product details",
+            "page": ""
           }
         }
       },
@@ -53,10 +64,11 @@
         "title",
         "price",
         "variant_picker",
-        "quantity_selector",
+        "popup_ADMXRH",
         "buy_buttons",
         "description",
-        "share"
+        "popup_ieVPeq",
+        "popup_PdGEDk"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -71,7 +83,7 @@
         "hide_variants": true,
         "enable_video_looping": true,
         "padding_top": 0,
-        "padding_bottom": 8
+        "padding_bottom": 0
       }
     },
     "related-products": {
