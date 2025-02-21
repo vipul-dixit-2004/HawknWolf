@@ -26,138 +26,149 @@
   {%- endif -%}
 
   {%- style -%}
-    body{
-      font-family:sans;
+      body{
+        font-family:sans;
+      }
+      .product-form{
+        margin:0px 0px 10px 0px !important;
+      }
+      .shopify-payment-button__button{
+        display:none;
+        /* hide the buy now btn */
+      }
+      .product-form__submit {
+        min-height: 35px !important; /* Adjust the height as needed */
+        padding: 8px 16px !important; /* Adjust padding if necessary */
+        /* font-size: 14px !important; Adjust font size if needed */
+      }
+      .select__select{
+        height:2.5rem
+      }
+      .select::after{
+        content: none;
+      }
+    /* check availability form*/
+    .field{
+      margin-bottom:1rem;
     }
-    .product-form{
-      margin:0px 0px 10px 0px !important;
+    .checkinstore{
+      font-weight:200;
     }
-    .shopify-payment-button__button{
-      display:none;
-      /* hide the buy now btn */
+    .checkinstore:hover{
+      font-weight:300;
     }
-  /* check availability form*/
-  .field{
-    margin-bottom:1rem;
-  }
-  .checkinstore{
-    font-weight:200;
-  }
-  .checkinstore:hover{
-    font-weight:300;
-  }
-  /* other styles */
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    }
-
-    @media screen and (min-width: 750px) {
+    /* other styles */
       .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top }}px;
-        padding-bottom: {{ section.settings.padding_bottom }}px;
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
       }
-    }
-    /* Product page container */
-    @media screen and (min-width: 750px) {
 
-      .product__media-list{
-        /* to make media come in a stack */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
       }
-      .product__wrapper{
-        /* to remove extra padding and margins */
-        margin:auto 0px;
+      /* Product page container */
+      @media screen and (min-width: 750px) {
+
+        .product__media-list{
+          /* to make media come in a stack */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .product__wrapper{
+          /* to remove extra padding and margins */
+          margin:auto 0px;
+          padding:0 !important;
+          min-width:100%
+        }
+        .product__media-item{
+          /* to make image cover whole area */
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .contains-media{
+          row-gap:0 !important;
+          /* this help in removing the spaces btw the images */
+          /* min-width: 50% */
+        }
+        .product__info-wrapper{
+          min-width:50%
+        }
+        .product__info-wrapper{
+        width: 50%;
+      height: auto;
+      display: flex
+      ;
+      flex-direction: column;
+      background: none;
+      }
+      .product__info-wrapper{
+        --max-width: calc(var(--container-width, 100%) - var(--outer-gutter) -(var(--inner-gutter) / 2));
+          position: sticky;
+          /* height: 100vh; */
+          top: 0px;
+          display: flex;
+          /* -webkit-box-align: center; */
+          align-items: center;
+          /* -webkit-box-pack: center; */
+          /* justify-content: center; */
+          min-height: min(100vh, 100dvh);
+          margin-left: auto;
+          margin-right: auto;
+          width: calc(((4 / 6)* var(--max-width, 100%)) -(var(--inner-gutter) -(4 / 6* var(--inner-gutter))));
+          /* padding: calc(var(--spacer-header) + var(--spacer-cart-reminder-banner) + var(--spacer-header) / 2) 0; */
+          padding: 0;
+
+      }
+
+        .product__info-container{
+          top: 20%;
+          /* padding-left:50px */
+        }
+        .product__info-container {
+            min-width: 50%;
+        }
+        .product__title>h1{
+          line-height:2rem;
+          font-size:2rem;
+          font-weight:700;
+          text-transform:uppercase
+        }
+        .price--large {
+          font-size: 1.3rem !important;
+        }
+        .accordion {
+          margin-top:0px;
+      }
+      .product__media-wrapper{
+        max-width: 50% !important;
+      }
+      .product__info-wrapper {
+
         padding:0 !important;
-        min-width:100%
       }
-      .product__media-item{
-        /* to make image cover whole area */
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      .contains-media{
-        row-gap:0 !important;
-        /* this help in removing the spaces btw the images */
-        /* min-width: 50% */
-      }
-      .product__info-wrapper{
-        min-width:50%
-      }
-      .product__info-wrapper{
-      width: 50%;
-    height: auto;
-    display: flex
-    ;
-    flex-direction: column;
-    background: none;
-    }
-    .product__info-wrapper{
-      --max-width: calc(var(--container-width, 100%) - var(--outer-gutter) -(var(--inner-gutter) / 2));
-        position: sticky;
-        /* height: 100vh; */
-        top: 0px;
-        display: flex;
-        /* -webkit-box-align: center; */
-        align-items: center;
-        /* -webkit-box-pack: center; */
-        /* justify-content: center; */
-        min-height: min(100vh, 100dvh);
-        margin-left: auto;
-        margin-right: auto;
-        width: calc(((4 / 6)* var(--max-width, 100%)) -(var(--inner-gutter) -(4 / 6* var(--inner-gutter))));
-        /* padding: calc(var(--spacer-header) + var(--spacer-cart-reminder-banner) + var(--spacer-header) / 2) 0; */
-        padding: 0;
 
-    }
-
-      .product__info-container{
-        top: 20%;
-        /* padding-left:50px */
       }
-      .product__info-container {
-          min-width: 50%;
+      .product__video{
+        width: 100%;
+        /* height: 100%; */
+        overflow: hidden;
       }
-      .product__title>h1{
-        line-height:2rem;
-        font-size:2rem;
-        font-weight:700;
-        text-transform:uppercase
+      .product-popup-modal__toggle{
+        background-color:#000;
+        color:#fff;
+        transition:0.3s all ease-in;
       }
-      .price--large {
-        font-size: 1.3rem !important;
+      .product-popup-modal__toggle:hover{
+        color:grey
       }
-      .accordion {
-        margin-top:0px;
-    }
-    .product__media-wrapper{
-      max-width: 50% !important;
-    }
-    .product__info-wrapper {
-
-      padding:0 !important;
-    }
-
-    }
-    .product__video{
-      width: 100%;
-      /* height: 100%; */
-      overflow: hidden;
-    }
-    .product-popup-modal__toggle{
-      background-color:#000;
-      color:#fff;
-      transition:0.3s all ease-in;
-    }
-    .product-popup-modal__toggle:hover{
-      color:grey
-    }
-    .select{
-      border: 0;
-      border-bottom: 1px solid black;
-    }
+      .select{
+        border: 0;
+        border-bottom: 1px solid black;
+      }
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -944,7 +955,7 @@
                 const successMsg = document.createElement('div');
                 successMsg.className = 'contact-success-message';
                 successMsg.innerHTML = 'Thank you, we have received your message we will contact you for further information';
-                
+
                 // Style the message
                 successMsg.style.backgroundColor = '#4CAF50';
                 successMsg.style.color = 'white';
@@ -953,13 +964,13 @@
                 successMsg.style.width = '100%';
                 successMsg.style.position = 'relative';
                 successMsg.style.zIndex = '1000';
-                
+
                 // Insert after header
                 const header = document.querySelector('header');
                 if (header && header.parentNode) {
                   header.parentNode.insertBefore(successMsg, header.nextSibling);
                 }
-                
+
                 // Remove the message after 5 seconds
                 setTimeout(function() {
                   successMsg.style.transition = 'opacity 0.5s ease';
@@ -1000,7 +1011,7 @@
         </section>
       </div>
       <!-- Modal Popup -->
-      
+
       <div id="availabilityModal" class="modal-overlay">
         <div class="modal-container">
           <div class="modal-header">
@@ -1024,39 +1035,46 @@
                   endif
                 -%}
                 {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
-                  
                   <div class="contact__fields">
-                    {% comment %} <div class="field">
-                      <label for="productName" class="field__label">Product</label>
-                      <input
-                        type="hidden"
-                        id="ContactForm-productId"
-                        name="contact[productId]"
-                        class="field__input"
-                        value="{{ product.id }}"
-                      >
-                      <input
-                        type="text"
-                        id="ContactForm-productName"
-                        name="contact[productName]"
-                        class="field__input"
-                        value="{{ product.title }} - Size: {{ product.selected_or_first_available_variant.title }}"
-                        readonly
-                      >
-                      <input
-                        type="hidden"
-                        name="contact[productVariant]"
-                        id="ContactForm-productVarient"
-                        class="field__input"
-                        value="{{ product.selected_or_first_available_variant.title }}"
-                      >
-                    </div> {% endcomment %}
+                    {% comment %}
+                      <div class="field">
+                        <label for="productName" class="field__label">Product</label>
+                        <input
+                          type="hidden"
+                          id="ContactForm-productId"
+                          name="contact[productId]"
+                          class="field__input"
+                          value="{{ product.id }}"
+                        >
+                        <input
+                          type="text"
+                          id="ContactForm-productName"
+                          name="contact[productName]"
+                          class="field__input"
+                          value="{{ product.title }} - Size: {{ product.selected_or_first_available_variant.title }}"
+                          readonly
+                        >
+                        <input
+                          type="hidden"
+                          name="contact[productVariant]"
+                          id="ContactForm-productVarient"
+                          class="field__input"
+                          value="{{ product.selected_or_first_available_variant.title }}"
+                        >
+                      </div>
+                    {% endcomment %}
                     <div class="field">
-                      <select id="ContactFormVariant" style="padding:0 0 0 2rem" name="contact[variant]" class="field__input" required>
+                      <select
+                        id="ContactFormVariant"
+                        style="padding:0 0 0 2rem"
+                        name="contact[variant]"
+                        class="field__input"
+                        required
+                      >
                         <option value="">Please select a product variant</option>
-                          {% for variant in product.variants %}
-                            <option value="{{ variant.id }}">{{ product.title }} - {{ variant.title }}</option>
-                          {% endfor %}
+                        {% for variant in product.variants %}
+                          <option value="{{ variant.id }}">{{ product.title }} - {{ variant.title }}</option>
+                        {% endfor %}
                       </select>
                     </div>
                     <div class="field">
@@ -1130,8 +1148,6 @@
                 {%- endform -%}
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
