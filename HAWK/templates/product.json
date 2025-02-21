@@ -44,20 +44,6 @@
         "description": {
           "type": "description",
           "settings": {}
-        },
-        "popup_ieVPeq": {
-          "type": "popup",
-          "settings": {
-            "text": "Find in Store",
-            "page": "find-in-store"
-          }
-        },
-        "popup_PdGEDk": {
-          "type": "popup",
-          "settings": {
-            "text": "Product details",
-            "page": ""
-          }
         }
       },
       "block_order": [
@@ -66,9 +52,7 @@
         "variant_picker",
         "popup_ADMXRH",
         "buy_buttons",
-        "description",
-        "popup_ieVPeq",
-        "popup_PdGEDk"
+        "description"
       ],
       "settings": {
         "enable_sticky_info": true,
