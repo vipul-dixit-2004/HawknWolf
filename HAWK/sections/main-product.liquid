@@ -28,6 +28,10 @@
   {%- style -%}
       body{
         font-family:sans;
+        /* font-family:'Antipasto' */
+      }
+      .form__label{
+        margin-bottom:0.5px;
       }
       .product-form{
         margin:0px 0px 10px 0px !important;
@@ -47,15 +51,147 @@
       .select::after{
         content: none;
       }
+      .price__badge-sold-out{
+        display:none!important;
+      }
+      .product__description {
+        display:none;/*hide the description*/
+      }
+      .swatch {
+        --swatch--size: 2rem
+      }
+
+      /* product description modal */
+      .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal__header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal__header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .modal__close {
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    color: #999;
+  }
+  
+  .modal__body {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: smaller;
+  }
+  
+  .modal__footer {
+    padding: 15px 20px;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .product-details-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  
+  @media (max-width: 768px) {
+    .product-details-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .product-info__section h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .product-description {
+    line-height: 1.6;
+  }
+  
+  .product-specs {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .product-specs td {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .product-specs td:first-child {
+    font-weight: 500;
+    width: 40%;
+  }
+  .product-popup-modal__opener{
+    margin-top:0
+  }
+
+
+
+
     /* check availability form*/
     .field{
       margin-bottom:1rem;
     }
-    .checkinstore{
+    .modalBtn{
       font-weight:200;
+      font-size:1.5rem;
+      text-underline-offset: .3rem;
     }
-    .checkinstore:hover{
+  .modalBtn:hover{
       font-weight:300;
+    }
+    .product-popup-modal__button {
+      font-size: 1.5rem;
+      /* margin-bottom: 1.5rem; */
+      min-height:0
     }
     /* other styles */
       .section-{{ section.id }}-padding {
@@ -125,11 +261,13 @@
       }
 
         .product__info-container{
-          top: 20%;
+          top: 25%;
           /* padding-left:50px */
         }
         .product__info-container {
-            min-width: 50%;
+            min-width: 100%;
+            align-self:center;
+            padding: 0px 10% 0px 14%;
         }
         .product__title>h1{
           line-height:2rem;
@@ -608,13 +746,19 @@
                   <a
                     href="#"
                     id="checkAvailabilityBtn"
-                    class="checkinstore"
+                    class="checkinstore modalBtn"
                     onclick="openAvailabilityModal()"
                     style="color:black;"
                   >
                     Check In-Store
                   </a>
                 </div>
+                {% comment %} product details {% endcomment %}
+                <div>
+                <a href="#" id="view-description-trigger" class="modalBtn" style="color:black;">
+                  Product Details
+                </a>
+              </div>
 
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
@@ -984,7 +1128,7 @@
               }
             });
           </script>
-
+          {% comment %} Availability js {% endcomment %}
           <script>
             function openAvailabilityModal() {
               document.getElementById('availabilityModal').style.display = 'flex';
@@ -1003,7 +1147,54 @@
               }
             };
           </script>
-
+          {% comment %} Product description js {% endcomment %}
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              // Get product details from the page
+              const getProductDescription = () => {
+                // Try multiple possible selectors for product description
+                const description = document.querySelector('.product__description') || 
+                                   document.querySelector('.product-description') ||
+                                   document.querySelector('[data-product-description]');
+                
+                return {
+                  title: document.querySelector('.product__title')?.textContent.trim() || 'Product Description',
+                  description: description?.innerHTML || 'No description available for this product.'
+                };
+              };
+          
+              // Initialize modal with product description
+              const initModal = () => {
+                const productData = getProductDescription();
+                
+                // Set description
+                document.getElementById('modal-product-description').innerHTML = productData.description;
+              };
+              
+              // Modal open/close functionality
+              const modal = document.getElementById('product-description-modal');
+              const trigger = document.getElementById('view-description-trigger');
+              const closeBtn = document.querySelector('.modal__close');
+              
+              trigger.addEventListener('click', () => {
+                initModal();
+                modal.style.display = 'flex';
+              });
+              
+              const closeModal = () => {
+                modal.style.display = 'none';
+              };
+              
+              closeBtn.addEventListener('click', closeModal);
+              
+              // Close when clicking outside the modal
+              window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                  closeModal();
+                }
+              });
+            });
+          </script>
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -1073,7 +1264,7 @@
                       >
                         <option value="">Please select a product variant</option>
                         {% for variant in product.variants %}
-                          <option value="{{ variant.id }}">{{ product.title }} - {{ variant.title }}</option>
+                          <option value="{{ variant.id }}: {{ product.title }}-{{ variant.title }}">{{ product.title }} - {{ variant.title }}</option>
                         {% endfor %}
                       </select>
                     </div>
@@ -1153,6 +1344,24 @@
       </div>
     </div>
 
+
+    {% comment %} product description modal {% endcomment %}
+    <div id="product-description-modal" class="modal-overlay" style="display: none;">
+      <div class="modal">
+        <div class="modal__header">
+          <h2 id="modal-product-title">Product Details</h2>
+          <button class="modal__close" aria-label="Close modal">&times;</button>
+        </div>
+        
+        <div class="modal__body">
+          <div class="product-description-container">
+            <!-- Product Description -->
+            <div id="modal-product-description" class="product-description"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% comment %} ends here {% endcomment %}
     {% render 'product-media-modal', variant_images: variant_images %}
 
     {% assign popups = section.blocks | where: 'type', 'popup' %}

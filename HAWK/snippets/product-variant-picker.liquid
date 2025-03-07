@@ -13,7 +13,7 @@
     id="variant-selects-{{ section.id }}"
     data-section="{{ section.id }}"
     {{ block.shopify_attributes }}
-    style="display:flex; flex-direction:column-reverse"
+    style="display:flex; flex-direction:column-reverse;margin-bottom: 0px;"
   >
     {%- for option in product.options_with_values -%}
       {%- liquid
@@ -21,8 +21,11 @@
         assign picker_type = block.settings.picker_type
 
         if swatch_count > 0 and block.settings.swatch_shape != 'none'
-          if block.settings.picker_type == 'dropdown'
-            assign picker_type = 'swatch_dropdown'
+          if block.settings.picker_type == 'dropdown' 
+          assign picker_type = 'swatch_dropdown'
+          endif
+          if option.name contains 'Color'
+            assign picker_type = 'swatch'
           else
             assign picker_type = 'swatch'
           endif
