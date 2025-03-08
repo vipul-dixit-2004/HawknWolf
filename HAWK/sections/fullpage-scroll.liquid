@@ -6,7 +6,23 @@
 {% schema %}
 {
   "name": "Fullpage Scroll",
-  "settings": [],
+  "settings": [
+    {
+      "type": "url",
+      "id": "page_url_section_1",
+      "label": "Section 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "title1",
+      "label": "Section 1 Title"
+    },
+    {
+      "type": "text",
+      "id": "desp1",
+      "label": "Section 1 Description"
+    }
+  ],
   "presets": [
     {
       "name": "Fullpage Scroll"
@@ -14,6 +30,16 @@
   ]
 }
 {% endschema %}
+
+{% if section.settings.page_url_section_1 == blank %}
+  {% assign section.settings.page_url_section_1 = "#" %}
+{% endif %}
+{% if section.settings.title1 == blank %}
+  {% assign section.settings.title1 = "Collection name" %}
+{% endif %}
+{% if section.settings.desp1 == blank %}
+  {% assign section.settings.desp1 = "Collection Description here" %}
+{% endif %}
 
 {% stylesheet %}
 <style>
@@ -570,9 +596,9 @@
             <div class="section-content">
                 <div class="text-content bottom">
 
-                    <a href="#" class="">
-                      <p><b>Lourem Ipsom</b></p>
-                      <p>Discover the latest collection</p>
+                    <a href="{{ section.settings.page_url_section_1 }}" class="">
+                      <p><b>{{ section.settings.title1 }}</b></p>
+                      <p>{{ section.settings.desp1 }}</p>
                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" fill="none" aria-hidden="false"><path stroke="currentColor" d="M9 1 5 5 1 1"></path></svg>
                   </a>
                 </div>

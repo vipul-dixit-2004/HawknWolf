@@ -78,7 +78,7 @@
         "products_to_show": 8,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
-        "image_ratio": "square",
+        "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
@@ -87,10 +87,21 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "custom_footer_PTzzjY": {
+      "type": "custom-footer",
+      "settings": {
+        "collections_menu": "footer_nav1",
+        "info_menu": "footer_nav2",
+        "social_menu": "footer_nav3",
+        "padding_top": 64,
+        "padding_bottom": 44
+      }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "custom_footer_PTzzjY"
   ]
 }
