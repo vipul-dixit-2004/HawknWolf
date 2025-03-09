@@ -1,0 +1,186 @@
+{% schema %}
+{
+  "name": "Product Overview",
+  "settings": [
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Media Type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "overview_image",
+      "label": "Overview Image",
+      "info": "Select when Media Type is set to Image"
+    },
+    {
+      "type": "url",
+      "id": "overview_video",
+      "label": "Overview Video",
+      "info": "Select when Media Type is set to Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay Video",
+      "default": true,
+      "info": "Video will autoplay with muted audio"
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop Video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_controls",
+      "label": "Show Video Controls",
+      "default": false
+    },
+    {
+      "type": "product",
+      "id": "link_url",
+      "label": "Link Product",
+      "info": "Link the media with product"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "width_percentage",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Media Width",
+      "default": 75
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_desktop",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Margin (Desktop)",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Margin (Mobile)",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Enhanced Product Overview"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.product-overview-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  text-align: center;
+}
+
+.product-overview {
+  margin: 0 auto;
+  width: 100%;
+  margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-overview img,
+.product-overview video {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+{% comment %} .product-overview a:hover img,
+.product-overview a:hover video {
+  transform: scale(1.03);
+} {% endcomment %}
+
+@media screen and (min-width: 750px) {
+  .product-overview {
+    width: {{ section.settings.width_percentage }}%;
+    margin-bottom: {{ section.settings.margin_bottom_desktop }}px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-overview {
+    width: 100%;
+  }
+}
+</style>
+
+<section id="{{ section.id }}">
+  <div class="product-overview-container">
+    <div class="product-overview">
+      {% if section.settings.link_url %}<a href="/products/{{ section.settings.link_url }}">{% endif %}
+        
+        {% if section.settings.media_type == 'video' and section.settings.overview_video %}
+          <video 
+            {% if section.settings.autoplay %}autoplay muted{% endif %}
+            {% if section.settings.loop %}loop{% endif %}
+            {% if section.settings.show_controls %}controls{% endif %}
+            playsinline
+          >
+            <source src="{{ section.settings.overview_video }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% elsif section.settings.media_type == 'image' and section.settings.overview_image %}
+          {{ section.settings.overview_image | image_url: width: 1200 | image_tag: 
+            loading: 'lazy', 
+            alt: section.settings.overview_image.alt
+          }}
+        {% endif %}
+        
+      {% if section.settings.link_url %}</a>{% endif %}
+    </div>
+  </div>
+</section>
